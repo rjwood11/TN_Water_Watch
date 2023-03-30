@@ -1,0 +1,8 @@
+name: waterwatch
+channels:
+ - conda-forge
+ - base
+ - R
+ dependencies:
+ - r-base
+ - r-tidyverse
