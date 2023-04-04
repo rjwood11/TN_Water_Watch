@@ -1,6 +1,7 @@
 name: waterwatch
 channels:
  - conda-forge
+ - base
  - bioconda
  - R
 dependencies:
@@ -8,4 +9,7 @@ dependencies:
  - r-tidyverse
  - r-gganimate
  - r-plotly
+ - wget
+ - snakemake
+ - graphviz
  
