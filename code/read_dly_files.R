@@ -1,3 +1,5 @@
+#!/usr/bin/env Rscript
+
 library(tidyverse)
 library(glue)
 library(lubridate)
@@ -27,6 +29,11 @@ library(lubridate)
 #SFLAG31    269-269   Character
 #------------------------------
 
+# BNA airport - "data/USW00013897.dly"
+
+
+window <- 30
+tday_julian <- yday(today())
 quadruple <- function(x){
   c(glue("VALUE{x}"), glue("MFLAG{x}"), glue("QFLAG{x}"), glue("SFLAG{x}"))
 }
@@ -34,22 +41,36 @@ quadruple <- function(x){
 widths <- c(11, 4, 2, 4, rep(c(5, 1, 1, 1), 31))
 headers <- c("ID", "YEAR", "MONTH", "ELEMENT", unlist(map(1:31, quadruple)))
 
+x <- "data/USC00406403.dly"
 
-read_fwf("data/USW00013897.dly", 
+
+
+read_fwf(x, 
          fwf_widths(widths, headers),
          na = c("NA", "-9999"),
          col_types = cols(.default = col_character()),
          col_select = c(ID, YEAR, MONTH, ELEMENT, starts_with("VALUE"))) %>% 
   rename_all(tolower) %>% 
-  filter(element == c("PRCP", "TMAX", "TMIN", "TAVG")) %>%
+  filter(element == c("PRCP")) %>%
   pivot_longer(cols=starts_with("value"), 
                names_to="day") %>%
   drop_na() %>%
   mutate(day = str_replace(day,"value", ""),
          date=ymd(glue("{year}-{month}-{day}")),
          value = as.numeric(value)) %>%  #PRCP is in tenths of mm
-  select(id, date, element, value) %>%
+  select(id, date, element, value) %>% 
+  mutate(julian_day = yday(date),
+         diff = tday_julian - julian_day,
+         is_in_window = case_when(diff < window & diff > 0 ~TRUE,
+                                  diff > window ~ FALSE,
+                                  tday_julian < window &
+                                    diff + 365 < window ~TRUE,
+                                  diff < 0 ~ FALSE,
+                                  diff == 0 ~ TRUE),
+         year = year(date)) %>%
+  filter(is_in_window) %>%
   write_tsv("data/composite_dly.tsv")
+
 
 
 

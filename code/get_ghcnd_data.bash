@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
-file=$1
-
+file=USC00406403.dly
 
 rm data/$file
 
