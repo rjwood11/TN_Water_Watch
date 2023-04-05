@@ -9,6 +9,7 @@ dependencies:
  - r-tidyverse
  - r-gganimate
  - r-plotly
+ - r-rmarkdown
  - wget
  - snakemake
  - graphviz

@@ -1,0 +1,46 @@
+---
+title: TN Water Watch
+author: Ryan Jackwood
+output: html_document
+email_address: ryanjackwood@harpethriver.org
+github_repo: https://github.com/rjwood11/TN_Water_Watch
+---
+
+```{r echo = FALSE, message = FALSE}
+library(lubridate)
+
+```
+
+
+
+
+```{css echo = FALSE}
+
+.author, .title {
+  display: none;
+}
+
+.main-container {
+  max-width: 100%;
+}
+
+body {  
+  background-color: black;
+  color: white;
+  font-size: 1.2vw;
+}
+
+```
+
+
+
+
+![](visuals/dice.png)
+
+
+Last updated on `r today()`  
+Visuals [developed](`r rmarkdown::metadata$github_repo`) by [Ryan Jackwood](mailto:`r rmarkdown::metadata$email_address`)
+
+
+
+
