@@ -13,4 +13,5 @@ dependencies:
  - wget
  - snakemake
  - graphviz
+ - coreutils>=9.1
  
