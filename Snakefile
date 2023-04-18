@@ -1,7 +1,7 @@
 rule targets:
     input:
-      "index.html",
-      "data/USC00406403.dly"
+        "index.html",
+        "data/USC00406403.dly"
 
 
 rule get_all_archive:
@@ -20,14 +20,14 @@ rule get_all_archive:
 
 
 rule render_index:
-  input:
-    rmd = "index.Rmd",
-    png = "visuals/dice.png"
-  output:
-    "index.html"
-  conda:
-    "environment.yml"
-  shell:
-    """
-    R -e "library(rmarkdown); render('{input.rmd}')"
-    """
+    input:
+        rmd = "index.Rmd",
+        png = "visuals/dice.png"
+    output:
+        "index.html"
+    conda:
+        "environment.yml"
+    shell:
+        """
+        R -e "library(rmarkdown); render('{input.rmd}')"
+        """
