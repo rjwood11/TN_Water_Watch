@@ -41,7 +41,7 @@ quadruple <- function(x){
 widths <- c(11, 4, 2, 4, rep(c(5, 1, 1, 1), 31))
 headers <- c("ID", "YEAR", "MONTH", "ELEMENT", unlist(map(1:31, quadruple)))
 
-x <- "data/USC00406403.dly"
+x <- "data/USW00013897.dly"
 
 
 
